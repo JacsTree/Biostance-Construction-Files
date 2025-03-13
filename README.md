@@ -1,5 +1,5 @@
 # Biostance Device Assembly Instructions
-*Adapted from the docs [here](https://docs.google.com/document/d/1ldEVrvwhGYVu4OGukCBJCGcmKfjVL98Qq2BRzPFvP7Y/edit?usp=sharing): additional pictures can be found at the link* 
+*Adapted from the docs [here](https://docs.google.com/document/d/1ldEVrvwhGYVu4OGukCBJCGcmKfjVL98Qq2BRzPFvP7Y/edit?usp=sharing): (additional pictures can be found at the link)* 
 ## Introduction
 
 This document provides step-by-step instructions for reproducing the final Biostance device prototype.  It covers the process from purchasing parts and assembling components to final construction and code implementation.  The device measures and logs a user's percent weight-bearing status over time.
