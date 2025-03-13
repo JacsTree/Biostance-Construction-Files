@@ -1,4 +1,5 @@
 # Biostance Device Assembly Instructions
+This document is written for Northwestern DTC 1 Section 5.1, all code, figures, and files are subject to Northwestern University Copyright Protection.
 *Adapted from the docs [here](https://docs.google.com/document/d/1ldEVrvwhGYVu4OGukCBJCGcmKfjVL98Qq2BRzPFvP7Y/edit?usp=sharing): (additional pictures can be found at the link)* 
 ## Introduction
 
