@@ -126,7 +126,7 @@ This document provides step-by-step instructions for reproducing the final Biost
 **Wiring Diagram:** Follow this diagram carefully throughout the wiring process.
 
 **(Figure 1: Electronics wiring diagram displaying the function of each part.** 
-[Wiring Diagram](figure1.png)
+![Wiring Diagram](figure1.png)
 1.  **HX711 Modification (80Hz Mode):**
     *   **De-solder the 0 Ohm resistor** from *each* HX711 chip.
     *   **Bridge the 80Hz pads** with solder. This enables faster data transfer (at the cost of some accuracy).
