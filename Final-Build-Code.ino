@@ -1,6 +1,6 @@
 #include <WiFi.h>
 #include "HX711.h"
-#include <ArduinoJson.h> // Required for creating JSON objects
+#include <ArduinoJson.h> 
 
 const char* ssid     = "Biostance-Device";
 const char* password = "123456789";
@@ -30,21 +30,19 @@ const float calibration_factor_2 = -20911.6; //RL g
 const float calibration_factor_3 = -20678.8955; //LR good
 const float calibration_factor_4 = -19000.304; //LL g
 
-// Data refresh interval (milliseconds) - ADJUST THIS
+// Data refresh interval (milliseconds)
 const unsigned long DATA_REFRESH_INTERVAL = 200; // Update every 200 milliseconds
 const unsigned long CLIENT_TIMEOUT = 10000;  // 10 seconds of inactivity
 
 unsigned long lastDataUpdate = 0;
 
-// Function Prototypes
 void sendHTML(WiFiClient& client);
 void sendData(WiFiClient& client);
 
 
 
 void setup() {
-  // Serial.begin(115200);
-
+  
   // Initialize HX711s
   scale1.begin(LOADCELL_DOUT_PIN_1, LOADCELL_SCK_PIN_1);
   scale1.set_scale(calibration_factor_1);
@@ -71,27 +69,26 @@ void loop() {
   WiFiClient client = server.available();
 
   if (client) {
-    char header[2000] = {0}; // Fixed size buffer for the header
+    char header[2000] = {0}; 
     String currentLine = "";
-    unsigned long lastActivity = millis();  // Track last activity
+    unsigned long lastActivity = millis(); 
     bool initialRequest = true;
 
     while (client.connected() && (millis() - lastActivity < CLIENT_TIMEOUT)) {
       if (client.available()) {
         char c = client.read();
-        // Serial.write(c);
-        strncat(header, &c, 1); // Append to the fixed-size buffer
+        strncat(header, &c, 1); 
 
         if (c == '\n') {
           if (currentLine.length() == 0) {
 
              if (strstr(header, "GET /data") != NULL) {
-              sendData(client); // Send JSON data for the visualization page
-              break; // Break so it doesn't send the HTML
+              sendData(client); 
+              break; 
             }
 
-            sendHTML(client);  // Send the appropriate HTML page
-            break; // Exit client handling
+            sendHTML(client);  
+            break; 
 
           } else {
             currentLine = "";
@@ -99,9 +96,9 @@ void loop() {
         } else if (c != '\r') {
           currentLine += c;
         }
-        lastActivity = millis(); // Update last activity
+        lastActivity = millis(); 
       }
-      yield(); //Important to allow ESP32 to handle other tasks
+      yield();
     }
 
     client.stop();
@@ -114,8 +111,6 @@ void loop() {
 
 
 void sendHTML(WiFiClient& client) {
-  // Send HTML content based on the requested page
-  // Start of response
   client.println("HTTP/1.1 200 OK");
   client.println("Content-type:text/html");
   client.println("Connection: close");
@@ -430,14 +425,14 @@ p { text-align: center; }
         const leftPercentageDisplay = document.getElementById('left-percentage');
         const rightPercentageDisplay = document.getElementById('right-percentage');
         const totalWeightDisplay = document.getElementById('totalWeight');
-        const leftLbsDisplay = document.getElementById('left-lbs'); // New
-        const rightLbsDisplay = document.getElementById('right-lbs'); // New
+        const leftLbsDisplay = document.getElementById('left-lbs'); 
+        const rightLbsDisplay = document.getElementById('right-lbs');
         const needle = document.getElementById('needle');
         // Function to update the bar heights, percentages, and needle position
         function updateBars(leftForce, rightForce, totalWeight) {
           let leftPercentage = 0;
           let rightPercentage = 0;
-          if (totalWeight >= 2) { // Only update if totalWeight is at least 5 lbs
+          if (totalWeight >= 3) { // Only update if totalWeight is at least 3 lbs
             leftPercentage = Math.max(0, (leftForce / totalWeight) * 100);  // Ensure percentage is not negative
             rightPercentage = Math.max(0, (rightForce / totalWeight) * 100); // Ensure percentage is not negative
             leftBar.style.height = leftPercentage + '%';
@@ -445,8 +440,8 @@ p { text-align: center; }
             leftPercentageDisplay.textContent = leftPercentage.toFixed(1) + '%';
             rightPercentageDisplay.textContent = rightPercentage.toFixed(1) + '%';
             totalWeightDisplay.textContent = totalWeight.toFixed(1);
-            leftLbsDisplay.textContent = leftForce.toFixed(1) + ' lbs'; // New
-            rightLbsDisplay.textContent = rightForce.toFixed(1) + ' lbs'; // New
+            leftLbsDisplay.textContent = leftForce.toFixed(1) + ' lbs';
+            rightLbsDisplay.textContent = rightForce.toFixed(1) + ' lbs';
             // Update needle position (shifts left and right)
             let balance = (rightForce - leftForce) / totalWeight;  // Swapped left and right force");
             let position = 50 + (balance * 50); // 0 to 100
@@ -788,13 +783,13 @@ function updateTime() {
     lastUpdate = now;
     updateData();
   }
-  requestAnimationFrame(updateTime); // Schedule next update
+  requestAnimationFrame(updateTime);
 
 }
 
 updateTime();
 
-updateChart(); // Start the update loop
+updateChart(); // Start update loop
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -819,7 +814,6 @@ void sendData(WiFiClient& client) {
 
   // Check if enough time has passed since the last data update
   if (currentTime - lastDataUpdate >= DATA_REFRESH_INTERVAL) {
-    //Update last data time
     unsigned long timeDiff = currentTime-lastDataUpdate;
     lastDataUpdate = currentTime;
 
@@ -856,16 +850,16 @@ void sendData(WiFiClient& client) {
     // Send the JSON data
     client.println("HTTP/1.1 200 OK");
     client.println("Content-Type: application/json");
-    client.println("Connection: close");  // Important for AJAX
+    client.println("Connection: close");
     client.println("Cache-Control: no-cache, no-store, must-revalidate");
     client.println("Pragma: no-cache");
     client.println("Expires: 0");
     client.println();
-    client.println(jsonString);  // Send the JSON data
+    client.println(jsonString); 
     client.println();
   } else {
     client.println("HTTP/1.1 204 No Content");
-    client.println("Connection: close");  // Important for AJAX
+    client.println("Connection: close");  
     client.println();
   }
 }
