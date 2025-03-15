@@ -3,7 +3,7 @@
 #include <ArduinoJson.h> 
 
 const char* ssid     = "Biostance-Device";
-const char* password = "123456789";
+const char* password = "9~fFx6Eg92s";
 WiFiServer server(80);
 
 // HX711 circuit wiring for each load cell
