@@ -153,7 +153,7 @@ This document provides step-by-step instructions for reproducing the final Biost
     *   **CRITICAL WARNING:** **If your battery voltage exceeds the ESP32's maximum input voltage (check the ESP32 datasheet!), you *must* add a voltage regulator (e.g., a 5V regulator) between the battery and the ESP32's `Vin` pin.  Failure to do so will damage the ESP32 and could cause a fire.**
 
 6.  **Calibration (Test Code):**
-    *   Upload the test code (link to the test code in your GitHub repository) to the ESP32 using the Arduino IDE 2.x.
+    *   Upload the test code [here](https://github.com/bogde/HX711/blob/master/examples/HX711_full_example/HX711_full_example.ino) to the ESP32 using the Arduino IDE 2.x.
     *   **Arduino IDE Setup:**
         *   Ensure you have the ESP32 board definitions installed in the Arduino IDE.
         *   Select the correct ESP32 board and port.
